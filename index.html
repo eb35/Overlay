@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Overlay Plugin</title>
+
+        <style>
+			html, body {
+				font-family: sans-serif;
+				margin: 0;
+				padding: 0;
+			}
+
+			.section {
+				margin: 20px;
+				padding: 20px;
+				height: 100px;
+				color: white;
+			}
+
+			#one   { background: red; position: relative; }
+			#two   { background: orange; }
+			#three { background: yellow; color: black; }
+			#four  { background: green; }
+			#five  { background: blue; }
+        </style>
+    </head>
+    <body>
+		<div id="one" class="section">
+			Section 1
+		</div>
+
+		<div id="two" class="section">
+			Section 2
+		</div>
+
+		<div id="three" class="section">
+			Section 3
+		</div>
+
+		<div id="four" class="section">
+			Section 4
+		</div>
+
+		<div id="five" class="section">
+			Section 5
+		</div>
+
+        <script src="jquery-1.11.1.min.js"></script>
+        <script src="jquery.overlay.js"></script>
+        <script>
+            (function ($) {
+				$("body, .section").on("click", function (e) {
+					e.stopPropagation();
+					var $this = $(this),
+						message = "This is section {0}".replace("{0}", this.id.replace("#", ""))
+					if ($this.is("body")) { message = "This is the body"; }
+					var overlay = $.overlay(message, this);
+					$(this).find(".overlay_wrapper").one("click", function (e) {
+						e.stopPropagation();
+						overlay.close();
+					});
+				});
+            }(this.jQuery));
+        </script>
+    </body>
+</html>
